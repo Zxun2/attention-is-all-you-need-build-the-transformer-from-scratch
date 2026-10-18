@@ -109,8 +109,21 @@ def build_position_index_column(max_len):
     # TODO: build a column vector of position indices from 0 to max_len-1
     return torch.arange(0, max_len, dtype=torch.float32).unsqueeze(1)
 
-# Step 10 - fill_even_indices_with_sin (not yet solved)
-# TODO: implement
+# Step 10 - fill_even_indices_with_sin
+import torch
+
+def fill_even_indices_with_sin(pe, position, div_term):
+    """Fill even feature indices of pe with sin(position * div_term)."""
+    # TODO: write sin(position * div_term) into the even-indexed columns of pe and return it
+    # Clone pe to avoid modifying the input tensor in-place
+    pe_out = pe.clone()
+    
+    # 0::2 slices every second column starting from index 0 (even columns: 0, 2, 4, ...)
+    # PyTorch broadcasting automatically expands (max_len, 1) and (d_model // 2,) 
+    # into shape (max_len, d_model // 2) for the inner product.
+    pe_out[:, 0::2] = torch.sin(position * div_term)
+    
+    return pe_out
 
 # Step 11 - fill_odd_indices_with_cos (not yet solved)
 # TODO: implement
