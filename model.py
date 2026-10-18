@@ -31,11 +31,34 @@ def build_id_to_token_vocab(token_to_id):
     # TODO: build the inverse id-to-token dictionary from token_to_id       
     return {val: key for key, val in token_to_id.items()}
 
-# Step 3 - encode_sentence_to_ids (not yet solved)
-# TODO: implement
+# Step 3 - encode_sentence_to_ids
+def encode_sentence_to_ids(sentence, token_to_id, unk_token='<unk>'):
+    # TODO: convert whitespace tokens of `sentence` to ids via `token_to_id`, using `unk_token`'s id for OOV
+    
+    encoding = []
+    if not sentence:
+        return encoding
 
-# Step 4 - decode_ids_to_tokens (not yet solved)
-# TODO: implement
+    words = sentence.split(' ')
+    for word in words:
+        if word in token_to_id:
+            encoding.append(token_to_id[word])
+        else:
+            encoding.append(token_to_id[unk_token])
+
+    return encoding
+
+# Step 4 - decode_ids_to_tokens
+def decode_ids_to_tokens(ids, id_to_token):
+    # TODO: map each id in ids to its token string via id_to_token and return the list
+    ans = []
+    if not ids:
+        return ans
+
+    for iid in ids:
+        ans.append(id_to_token[iid])
+
+    return ans
 
 # Step 5 - pad_id_sequence (not yet solved)
 # TODO: implement
